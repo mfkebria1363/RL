@@ -1,18 +1,30 @@
-import gym
-import time
+import numpy as np
 
-# create the environment
-env = gym.make('Tennis-ramDeterministic-v3')
-# reset the environment before starting
-env.reset()
-# loop 10 times
-done = False
-for i in range(50):
-    # take a random action
-    if(not done):
-        state, reward, done, data=env.step(env.action_space.sample())
-        # render the game
-        env.render()
 
-# close the environment
-env.close()
+
+
+def build_state(features):
+    return int("".join(map(lambda feature: str(int(feature)), features)))
+
+def to_bin(value, bins):
+    return np.digitize(x=[value], bins=bins)
+
+
+
+print(np.digitize(x=[15], bins=np.linspace(-3.5, 3.5, 9)))
+print (np.linspace(-3.5, 3.5, 9))
+
+class FeatureTransformer:
+    def __init__(self) -> None:
+        self.cartPositionBins = np.linspace(-2.4, 2.4, 9)
+        self.cartVelocityBins = np.linspace(-2, 2, 9)
+        self.poleAngleBins = np.linspace(-0.4, 0.4, 9)
+        self.poleVelocityBins = np.linspace(-3.5, 3.5, 9)
+
+    def transform(self, observation):
+        cartPos, cartVel, poleAngle, poleVel = observation
+        return build_state(to_bin(cartPos, self.cartPositionBins),
+                           to_bin(cartVel, self.cartVelocityBins),
+                           to_bin(poleAngle, self.poleAngleBins),
+                           to_bin(poleVel, self.poleVelocityBins))
+
