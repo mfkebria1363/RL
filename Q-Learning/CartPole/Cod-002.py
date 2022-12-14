@@ -8,8 +8,15 @@ print(env.observation_space.high)
 
 
 env.reset()
+
+print ( 10**env.observation_space.shape[0])
+
 # play 10 games
-for i in range(3):
+
+l = 0
+h = 0
+
+for i in range(1000):
     # initialize the variables
     done = False
     game_rew = 0
@@ -19,8 +26,12 @@ for i in range(3):
         env.render()
         # take a step in the environment
         new_obs, rew, done, info = env.step(action)
+        l = min(l, new_obs[0])
+        h = max(l, new_obs[0])
         game_rew += rew
-        # when is done, print the cumulative reward of the game and reset the environment
+        # print (new_obs)
+        # # when is done, print the cumulative reward of the game and reset the environment
         if done:
             print('Episode %d finished, reward:%d' % (i, game_rew))
             env.reset()
+            print (l, h)
