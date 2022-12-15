@@ -84,11 +84,11 @@ for ep in range(n_ep):
         if (done):
             print ("Well done!")
 
-        i, j = stateToIndex(crntState)
-        old_Q = Q_table[i, j, action]
-        next_Q = np.max(Q_table[stateToIndex(new_state)])
-        Q_table[i, j, action] = old_Q + lr * ( reward + dr * next_Q - old_Q)
-
+        cs = stateToIndex(crntState)
+        ns = stateToIndex(new_state)
+        old_Q = Q_table[cs][action]
+        next_Q = np.max(Q_table[ns])
+        Q_table[cs][action] = old_Q + lr * ( reward + dr * next_Q - old_Q)
         
     if (ep % 100 == 0 and ep > 0):
         name = "Q-Learning/Mountain-Car/Qtable_{}.txt".format(ep) 
