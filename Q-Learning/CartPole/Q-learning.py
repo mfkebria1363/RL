@@ -117,12 +117,10 @@ solver = solver(env, 20000, 5000)
 solver.loadQTable("Q-Learning/CartPole/Qtable_final.txt")
 
 rewards = []
-wins = 0
-U50 = 0
 for i in range(10):
     r = solver.play(True)
     rewards.append(r)
 
 print (np.min(rewards), np.average(rewards), np.max(rewards))
-print (wins, U50)
+
     
