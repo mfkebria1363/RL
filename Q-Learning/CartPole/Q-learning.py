@@ -121,11 +121,6 @@ wins = 0
 U50 = 0
 for i in range(10):
     r = solver.play(True)
-    print (i, r)
-    if r >= 200:
-        wins += 1
-    elif r < 50:
-        U50 += 1
     rewards.append(r)
 
 print (np.min(rewards), np.average(rewards), np.max(rewards))
