@@ -79,7 +79,6 @@ for ep in range(n_ep):
 
         reward, done = rewardFunction(crntState, new_state)
         # env.render()
-        # time.sleep(0.001)
 
         if (done):
             print ("Well done!")
