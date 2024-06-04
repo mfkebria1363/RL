@@ -1,0 +1,62 @@
+1- add new config to tsconfig.js
+
+    "paths": {
+      "@app/*": ["./src/*"]
+    }
+
+2 - install module-alias package:
+       
+    npm install module-alias
+
+3 - in the package.json file add this:
+
+    "_moduleAliases": {
+        "@app": "./dist"
+    }
+
+4 - in main.ts file import module-alias package
+
+    if (process.env.IS_TS_NODE){
+        require('module-alias/register')
+    }
+
+5 - in package.json file remove this two lines:
+
+    "start:dev": "nest start --watch",
+    "start:debug": "nest start --debug --watch",
+
+06 - change "start" like this:
+
+    "start": "set IS_TS_NODE = ture && ts-node -r tsconfig-paths/register src/main.ts"
+
+
+Note: in linux that will be like this: "start": "IS_TS_NODE = ture ts-node -r tsconfig-paths/register src/main.ts"
+
+
+07 - You can change your pthes like this
+    import { AppController } from './app.controller'; => import { AppController } from '@app/app.controller';
+
+
+--------------------------------- nodemon --------------------------------------------
+
+
+for useing nodemon: 
+
+08 - install nodemon : 
+    
+    npm i nodemon
+    
+09 - create nodemon.json 
+    {
+        "watch": ["src"],
+        "ext": "ts",
+        "exec": "set IS_TS_NODE = ture && ts-node -r tsconfig-paths/register src/main.ts"
+    }
+
+10 - update package.json file: 
+ 
+    "start": "nodemon"
+
+
+
+
