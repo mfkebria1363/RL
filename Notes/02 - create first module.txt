@@ -1,0 +1,10 @@
+you can use this commands to create new module, controller and srvice
+
+    nest g module module-name
+    nest g controller module-name
+    nest g srvice module-name
+the nest cli will take care of all other things like add the service and controller to the module
+
+
+Note for seeing the change without neet to stop the app and starting it again you can use this commands
+    npm run start:dev 
