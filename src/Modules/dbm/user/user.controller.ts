@@ -1,7 +1,6 @@
 import { BadRequestException, Body, Controller, Delete, InternalServerErrorException, Post } from '@nestjs/common';
 import { UserService } from './user.service';
-import { response } from 'express';
-import { NotFoundError } from 'rxjs';
+
 
 @Controller('user')
 export class UserController {
