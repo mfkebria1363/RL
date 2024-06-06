@@ -1,8 +1,8 @@
-import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from './user.entity';
+import { User } from '../../Entities/user.entity';
 import { Repository } from "typeorm";
-import { response } from 'express';
+
 
 @Injectable()
 export class UserService {
@@ -10,6 +10,9 @@ export class UserService {
         @InjectRepository(User) protected readonly userReopsitory: Repository<User> 
     ){}
 
+    getAll(){
+        return this.userReopsitory.find();
+    }
 
     newUser(body: any){
         return this.userReopsitory.save(body) 

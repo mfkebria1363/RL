@@ -1,17 +1,25 @@
 01 - npm install --save @nestjs/typeorm mysql2
 
+02 - create a ormConfig.ts file :
+  -------------------------------------------------------
+  import { TypeOrmModuleOptions } from "@nestjs/typeorm";
 
-02- add the bellow code to your imports part of app.module.ts file
-
-    TypeOrmModule.forRoot({
+  const config: TypeOrmModuleOptions = {
       type: 'mysql',
       host: 'localhost',
       port: 3306,
-      username: 'root',
+      username: 'username',
       password: 'password',
-      database: 'Testdb',
+      database: 'testdb',
       autoLoadEntities: true,
       synchronize: true
-    }),
+    }
 
+  export default config
+  -------------------------------------------------------
+
+
+03- add ormConfig imports part of app.module.ts file
+  
+    imports[TypeOrmModule.forRoot(config)]
 

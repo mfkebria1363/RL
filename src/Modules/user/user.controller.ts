@@ -1,12 +1,28 @@
-import { BadRequestException, Body, Controller, Delete, InternalServerErrorException, Post } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, InternalServerErrorException, Post, Get } from '@nestjs/common';
 import { UserService } from './user.service';
 
 
-@Controller('user')
+@Controller('users')
 export class UserController {
     constructor (
         private readonly userService : UserService
     ){}
+
+
+    @Get()
+    async getAll(){
+        
+        try{
+            const users = this.userService.getAll();
+            return (await users).map((usr) => {
+                const {first_name, last_name, email} = usr
+                return {first_name, last_name, email}
+        })
+
+        }catch(error){
+            throw new InternalServerErrorException("Unable to load users data.", error)
+        }
+    }
 
     @Post('register')
     async register(@Body() body: any){
