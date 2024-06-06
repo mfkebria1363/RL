@@ -7,8 +7,8 @@ TypeOrmModule.forRoot({
       host: 'localhost',
       port: 3306,
       username: 'root',
-      password: 'MyNewPass',
-      database: 'test',
+      password: 'password',
+      database: 'Testdb',
       autoLoadEntities: true,
       synchronize: true
     }),
