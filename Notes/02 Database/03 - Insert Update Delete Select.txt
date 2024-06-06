@@ -42,4 +42,71 @@
     }
 
 
+04 - for update a user use this funciton in service:
+
+    async editUser(body: any){
+        const user = await this.userReopsitory.findOneBy({ email: body.email });
+        if (!user){
+            throw new NotFoundException(`User ${body.email} not found.`)
+        }
+
+        user.first_name = body.first_name
+        user.last_name = body.last_name
+        
+        return this.userReopsitory.save(user);
+
+    }
+
+
+05 - now call it within your controller
+    @Post('edit')
+    async edit(@Body() body: any){
+        try{
+
+            await this.userService.editUser({
+                email: body.email,
+                first_name : body.first_name,
+                last_name : body.last_name
+            })
+
+            return {
+                message: "Your information has been editted successfully."
+            }
+
+        }catch(error){
+            let msg = "Failed to edit user information"
+            if (error.response.message){
+                msg = error.response.message
+            }
+            throw new InternalServerErrorException(msg, error)
+        }
+    }
+
+
+06 - for deleting a user declare this funcion in service:
+    async deleteUser(email: string){
+        const res = await this.userReopsitory.delete({email})
+        if (res.affected === 0){
+            throw new NotFoundException(`Unable to delete user ${email} `)
+        }
+        return res
+    }
+
+
+07 - and call it within the controller
+    @Delete('delete')
+    async delete(@Body() body: any){
+        
+        try{
+            await this.userService.deleteUser(body.email)
+            return { message: "User has beed deleted successfully."}
+        }catch(error){
+            let msg = "Failed to edit user information"
+            if (error.response.message){
+                msg = error.response.message
+            }
+            throw new InternalServerErrorException(msg, error)
+        }
+    }
+
 

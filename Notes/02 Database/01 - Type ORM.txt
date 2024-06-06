@@ -1,8 +1,9 @@
-npm install --save @nestjs/typeorm mysql2
+01 - npm install --save @nestjs/typeorm mysql2
 
-add the bellow code to your imports part of app.module.ts file
 
-TypeOrmModule.forRoot({
+02- add the bellow code to your imports part of app.module.ts file
+
+    TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
       port: 3306,
@@ -12,3 +13,5 @@ TypeOrmModule.forRoot({
       autoLoadEntities: true,
       synchronize: true
     }),
+
+
