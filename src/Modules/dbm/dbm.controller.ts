@@ -1,4 +1,4 @@
 import { Controller } from '@nestjs/common';
 
-@Controller('dbm')
+@Controller()
 export class DbmController {}

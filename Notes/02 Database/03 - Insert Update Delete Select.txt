@@ -1,13 +1,22 @@
-import { BadRequestException, Body, Controller, InternalServerErrorException, Post } from '@nestjs/common';
-import { UserService } from './user.service';
-import { response } from 'express';
+01 - add constructor to service
+    mport { InjectRepository } from "@nestjs/typeorm";
+    import { Repository } from "typeorm";
+    import { Injectable } from "@nestjs/common";
 
-@Controller('user')
-export class UserController {
-    constructor (
-        private readonly userService : UserService
+    constructor(
+        @InjectRepository(User) protected readonly userReopsitory: Repository<User> 
     ){}
 
+
+02 - create insertion function within the service
+
+    async insertUser(body: any){
+        return this.userReopsitory.save(body)
+    }
+
+
+03 - call the insertion funciotn in the controller
+    import { BadRequestException, Body, Controller, Post, InternalServerErrorException } from '@nestjs/common';
 
     @Post('register')
     async register(@Body() body: any){
@@ -27,8 +36,10 @@ export class UserController {
                 message: "New user has been inserted successfully."
             }
         } catch (error) {
-            console.log(error)
+        // Handle the error here
             throw new InternalServerErrorException('Failed to inset new user', error);
         }
     }
-}
+
+
+
